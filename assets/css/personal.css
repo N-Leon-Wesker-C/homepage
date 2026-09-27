@@ -1,0 +1,1078 @@
+/* ============================================================
+   personal.css — 个人主页补充样式
+   加载顺序在 top.css 之后，靠"相同/更高特异度 + 后加载"覆盖原站规则。
+   维护模型：原 top.css 保持原样，本文件的覆盖全部集中在这里。
+   ============================================================ */
+
+/* ---------- 基础 ---------- */
+
+a {
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #00a3ff;
+  outline-offset: 2px;
+}
+
+/* ---------- 顶部导航（覆盖原站 nth-child 定宽图片规则） ---------- */
+
+header .nav-box {
+  right: 5%;
+}
+
+header .nav-box .nav li a {
+  width: auto;
+  height: auto;
+  text-align: center;
+}
+
+header .nav-box .nav li:nth-child(1) a,
+header .nav-box .nav li:nth-child(2) a,
+header .nav-box .nav li:nth-child(3) a,
+header .nav-box .nav li:nth-child(4) a {
+  width: auto;
+}
+
+header .nav-box .nav li a .en {
+  display: block;
+  font-family: "Syncopate", "Noto Sans SC", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2px;
+  -webkit-transition: color 0.3s ease-out;
+          transition: color 0.3s ease-out;
+}
+
+header .nav-box .nav li a:hover .en {
+  color: #00a3ff;
+}
+
+header .nav-box .nav li a .cn {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  letter-spacing: 4px;
+}
+
+/* ---------- 文字版标题（替代原站 SVG 词标） ---------- */
+
+.title-kicker {
+  display: block;
+  font-family: "Syncopate", "Noto Sans SC", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 6px;
+  color: #00a3ff;
+  margin-bottom: 14px;
+}
+
+.title-kicker.animate-spec {
+  display: flex; /* 必须 flex，让拆开的字母排成一行 */
+  height: 34px;
+}
+
+.title-kicker.animate-spec span,
+.hero-kicker.animate-spec span {
+  margin-right: 0.4em;
+}
+
+.title-main {
+  display: block;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  line-height: 1.3;
+  color: #1d384a;
+}
+
+/* 各板块标题的强调色（每块一种鲜艳色） */
+.introduction-title .title-kicker {
+  color: #00a3ff;
+}
+
+.works-title .title-kicker {
+  color: #ff3d8f;
+}
+
+.game-system-title .title-kicker {
+  color: #00c98a;
+}
+
+.contact-title .title-kicker {
+  color: #ff8a00;
+}
+
+/* ---------- 通用入场动画（复用原站现成 keyframes） ---------- */
+
+.fade-up,
+.fade-down,
+.fade-left,
+.fade-right,
+.fade-scale {
+  opacity: 0;
+}
+
+.fade-up.run {
+  -webkit-animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.fade-down.run {
+  -webkit-animation: fadeInDown 1.2s ease-out both;
+          animation: fadeInDown 1.2s ease-out both;
+}
+
+.fade-left.run {
+  -webkit-animation: fadeInLeft 1.2s ease-out both;
+          animation: fadeInLeft 1.2s ease-out both;
+}
+
+.fade-right.run {
+  -webkit-animation: fadeInRight 1.2s ease-out both;
+          animation: fadeInRight 1.2s ease-out both;
+}
+
+.fade-scale.run {
+  -webkit-animation: fadeInScale 1.2s ease-out both;
+          animation: fadeInScale 1.2s ease-out both;
+}
+
+/* ---------- 图片占位 .ph（版权素材一律占位，日后换图 = 删 .ph 加 <img>） ---------- */
+
+.ph {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: none;
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0 14px, transparent 14px 28px),
+    linear-gradient(135deg, var(--ph-from, #e5eef6) 0%, var(--ph-mid, #5ba4d7) 55%, var(--ph-to, #1d384a) 100%);
+}
+
+/* 各板块的占位配色（鲜艳色系，换图后随 .ph 类一起删除） */
+.ph-blue {
+  --ph-from: #cfeaff;
+  --ph-mid: #17a0ff;
+  --ph-to: #0a4f9e;
+}
+
+.ph-mint {
+  --ph-from: #c9ffea;
+  --ph-mid: #2ee6a8;
+  --ph-to: #009a6e;
+}
+
+.ph::after {
+  content: attr(data-ph);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-family: "Syncopate", "Noto Sans SC", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: #ffffff;
+  text-align: center;
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* .story-img 各变体：连 .run 态一起压掉 404 的原站图片引用 */
+.ph.story-img.introduction-img,
+.ph.story-img.introduction-img.run,
+.ph.story-img.features-img,
+.ph.story-img.features-img.run,
+.ph.story-img.game-system-img,
+.ph.story-img.game-system-img.run {
+  background-image: none;
+}
+
+/* 首屏占位：铺满 .fv-movie，鲜艳蓝多层渐变 + 斜纹 */
+.ph-fv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.10) 0 14px, transparent 14px 28px),
+    radial-gradient(ellipse 90% 70% at 75% 20%, rgba(0, 212, 255, 0.65) 0%, rgba(0, 212, 255, 0) 60%),
+    radial-gradient(ellipse 60% 50% at 15% 85%, rgba(255, 61, 143, 0.35) 0%, rgba(255, 61, 143, 0) 70%),
+    linear-gradient(160deg, #0b2e5c 0%, #0060c7 45%, #00a3ff 80%, #00d4ff 100%);
+}
+
+/* 漂浮粒子光点（纯 CSS，混色 screen，复刻原站首屏粒子氛围） */
+.hero-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-particles span {
+  position: absolute;
+  bottom: -40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
+  mix-blend-mode: screen;
+  -webkit-animation: heroFloat linear infinite;
+          animation: heroFloat linear infinite;
+}
+
+.hero-particles span:nth-child(1) { left: 5%;  width: 10px; height: 10px; opacity: 0.55; animation-duration: 12s; animation-delay: -2s; }
+.hero-particles span:nth-child(2) { left: 13%; width: 6px;  height: 6px;  opacity: 0.4;  animation-duration: 9s;  animation-delay: -5s; }
+.hero-particles span:nth-child(3) { left: 22%; width: 14px; height: 14px; opacity: 0.5;  animation-duration: 16s; animation-delay: -7s; }
+.hero-particles span:nth-child(4) { left: 31%; width: 7px;  height: 7px;  opacity: 0.45; animation-duration: 11s; animation-delay: -3s; }
+.hero-particles span:nth-child(5) { left: 40%; width: 12px; height: 12px; opacity: 0.5;  animation-duration: 14s; animation-delay: -9s; }
+.hero-particles span:nth-child(6) { left: 48%; width: 5px;  height: 5px;  opacity: 0.35; animation-duration: 8s;  animation-delay: -1s; }
+.hero-particles span:nth-child(7) { left: 57%; width: 11px; height: 11px; opacity: 0.5;  animation-duration: 13s; animation-delay: -6s; }
+.hero-particles span:nth-child(8) { left: 65%; width: 6px;  height: 6px;  opacity: 0.4;  animation-duration: 10s; animation-delay: -4s; }
+.hero-particles span:nth-child(9) { left: 74%; width: 15px; height: 15px; opacity: 0.45; animation-duration: 17s; animation-delay: -11s; }
+.hero-particles span:nth-child(10) { left: 82%; width: 8px;  height: 8px;  opacity: 0.5;  animation-duration: 11s; animation-delay: -2s; }
+.hero-particles span:nth-child(11) { left: 90%; width: 12px; height: 12px; opacity: 0.5;  animation-duration: 15s; animation-delay: -8s; }
+.hero-particles span:nth-child(12) { left: 96%; width: 6px;  height: 6px;  opacity: 0.4;  animation-duration: 9s;  animation-delay: -3s; }
+
+@-webkit-keyframes heroFloat {
+  0%   { -webkit-transform: translateY(0);            transform: translateY(0); }
+  100% { -webkit-transform: translateY(-120vh);       transform: translateY(-120vh); }
+}
+
+@keyframes heroFloat {
+  0%   { -webkit-transform: translateY(0);            transform: translateY(0); }
+  100% { -webkit-transform: translateY(-120vh);       transform: translateY(-120vh); }
+}
+
+/* 首屏底部双层波浪（自绘路径；后层 #7ec8ff 与关于我区块底色衔接） */
+.hero-waves {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  z-index: 5;
+  width: 100%;
+  height: 120px;
+  pointer-events: none;
+}
+
+.hero-waves svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* footer logo 位占位 */
+.ph.p3r-logo {
+  min-width: 0;
+  width: 140px;
+  height: 40px;
+  padding: 0;
+}
+
+/* ---------- Hero 首屏（原站为视频 + SVG 词标，这里换成文字） ---------- */
+
+.fv .fv-text {
+  top: 32%;
+  left: 7%;
+  max-width: none;
+  min-width: 0;
+  width: auto;
+  padding-top: 0;
+}
+
+.hero-kicker {
+  font-family: "Syncopate", "Noto Sans SC", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #ffffff;
+  margin-bottom: 28px;
+}
+
+.hero-kicker.animate-spec {
+  height: 30px;
+}
+
+.hero-name {
+  font-size: 64px;
+  font-weight: 700;
+  letter-spacing: 10px;
+  line-height: 1.3;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.hero-sub {
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: #ffffff;
+  opacity: 0.85;
+}
+
+/* 原站 .scroll-box 由 JS 控制显示，这里改为常显 + 淡入（上移避开底部波浪） */
+.fv .scroll-box {
+  display: block;
+  bottom: 150px;
+  opacity: 0;
+  -webkit-transition: opacity 1s ease-out;
+          transition: opacity 1s ease-out;
+}
+
+.fv .scroll-box.run {
+  opacity: 1;
+}
+
+/* ---------- story 文字区：p 固定高度微调（原 55px 会裁掉第二行） ---------- */
+
+.story-text1 > p {
+  height: 66px;
+}
+
+.story-text1 > p span {
+  top: 66px;
+}
+
+/* ---------- 手风琴列表（从原站 lineup 抽取，作用域换成 .item-list） ---------- */
+
+.item-list {
+  margin-top: 60px;
+  opacity: 0;
+}
+
+.item-list.run {
+  -webkit-animation: fadeInUp 1s ease-out both;
+          animation: fadeInUp 1s ease-out both;
+}
+
+.item-list .list-header {
+  padding: 6px 0 9px;
+  border-bottom: 2px solid #eeeeee;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+
+.item-list .item {
+  padding: 16px 0 12px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.item-list .item-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font-family: inherit;
+}
+
+.item-list .item-name {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+.item-list .item-icon {
+  position: relative;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-right: 9px;
+}
+
+.item-list .item-icon::before,
+.item-list .item-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 1px;
+  background: #1d384a;
+}
+
+.item-list .item-icon::after {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+          transition:         transform 0.3s ease-out;
+}
+
+.item-list .item-btn.open .item-icon::after {
+  -webkit-transform: rotate(0);
+          transform: rotate(0);
+}
+
+.item-list .item-text {
+  display: none;
+  padding: 20px 30px 8px 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.item-list .item-text.open {
+  display: block;
+  -webkit-animation: fadeInDown 0.6s ease-out both;
+          animation: fadeInDown 0.6s ease-out both;
+}
+
+.item-list .item-text p {
+  margin-bottom: 8px;
+}
+
+.item-list .item-text a {
+  border-bottom: 1px solid #00a3ff;
+}
+
+/* ---------- 背景大字水印（替代原站 RELOAD SVG） ---------- */
+
+.bg-text {
+  width: 100%;
+  padding-bottom: 40px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.bg-word {
+  display: inline-block;
+  font-family: "Syncopate", "Noto Sans SC", sans-serif;
+  font-weight: 700;
+  font-size: calc(230 / 1920 * 100vw);
+  line-height: 1.1;
+  color: transparent;
+  -webkit-text-stroke: 1px #0a5ca8;
+  -webkit-transform: translateY(60px);
+          transform: translateY(60px);
+  opacity: 0;
+  -webkit-transition: opacity 1.2s ease-out, -webkit-transform 1.2s ease-out;
+          transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+.bg-text.run .bg-word {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  opacity: 1;
+}
+
+/* ---------- 区块底色提亮（覆盖原站 #c0d5e8 / #e5eef6） ---------- */
+
+.story {
+  background: linear-gradient(180deg, #7ec8ff 0%, #b8e2ff 60%, #8fd0f7 100%);
+}
+
+.story.essays {
+  background: linear-gradient(180deg, #7dffd4 0%, #c2ffec 100%);
+}
+
+.story.essays .game-system {
+  margin-top: 0;
+}
+
+/* ---------- 作品画廊（复刻原站角色区的横向滑动 + 背景色渐变切换） ---------- */
+
+.works {
+  background: #ffffff;
+}
+
+/* 标题舞台：项目作品标题/简介先独占一整屏，完全滚过之后画廊才从底部登场 */
+.works .wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding-top: 0;
+}
+
+.works-title {
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.works-intro {
+  margin-top: 0;
+  text-align: center;
+}
+
+.works-intro > p span {
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+}
+
+/* 钉住式滚动（复刻原站角色区 GSAP pin）：
+   .works-pin 是撑高的滚动容器，.works-sticky 由 JS 在滚入区间时切为
+   position:fixed 钉在视口上，卡片随滚动进度横向平移、背景色逐帧插值 */
+.works-pin {
+  position: relative;
+  margin-top: 0;
+}
+
+.works-sticky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.works-band {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0;
+  background-color: #00d4ff;
+  /* 颜色由 JS 逐帧插值驱动，不设 transition */
+}
+
+.works-carousel {
+  position: relative;
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 20px 6%;
+  overflow: visible;
+  /* 横向位移由 JS transform 驱动，不用原生滚动 */
+  scrollbar-width: none;
+}
+
+.works-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.works-slide {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+
+.works-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 320px;
+  height: 360px;
+  padding: 40px 34px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(29, 56, 74, 0.12);
+  color: #1d384a;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform 0.3s ease-out, -webkit-box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+          transition:         transform 0.3s ease-out,         box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+.works-card:hover {
+  -webkit-transform: translateY(-6px);
+          transform: translateY(-6px);
+}
+
+.works-card.active {
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-box-shadow: 0 18px 40px rgba(29, 56, 74, 0.18);
+          box-shadow: 0 18px 40px rgba(29, 56, 74, 0.18);
+}
+
+.works-card-en {
+  font-family: "Syncopate", "Noto Sans SC", sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #0070d9;
+}
+
+.works-card-num {
+  position: absolute;
+  top: 28px;
+  right: 30px;
+  font-family: "Syncopate", "Noto Sans SC", sans-serif;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 1;
+  color: rgba(29, 56, 74, 0.18);
+}
+
+.works-card-name {
+  margin-top: 60px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.4;
+}
+
+.works-card-year {
+  margin-top: auto;
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: 0.7;
+}
+
+/* 详情面板：钉住期间从底部滑入的浮层 */
+.works-detail {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  max-width: 1280px;
+  width: 86%;
+  max-height: 55vh;
+  overflow-y: auto;
+  padding: 40px 56px;
+  background: #ffffff;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-transform: translate(-50%, 110%);
+          transform: translate(-50%, 110%);
+  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+          transition:         transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.works-detail.open {
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+
+.works-detail p {
+  margin-bottom: 10px;
+}
+
+.works-detail a {
+  border-bottom: 1px solid #00a3ff;
+}
+
+/* ---------- Contact 区 ---------- */
+
+.contact {
+  background: linear-gradient(180deg, #ffffff 0%, #eaf7ff 100%);
+  border-top: 1px solid #eeeeee;
+}
+
+.contact .wrapper {
+  padding: 150px 0 120px;
+}
+
+.contact-title {
+  margin-bottom: 90px;
+  text-align: center;
+}
+
+.contact .spec-items {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.contact .spec-items li span:first-of-type {
+  letter-spacing: 4px;
+}
+
+.contact .link-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 48px;
+  margin-top: 70px;
+}
+
+.contact .link-items a {
+  border-bottom: 1px solid #00a3ff;
+  -webkit-transition: color 0.3s ease-out;
+          transition: color 0.3s ease-out;
+}
+
+.contact .link-items a:hover {
+  color: #00a3ff;
+}
+
+/* ---------- Footer ---------- */
+
+.footer .footer-contents {
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* ---------- 回到顶部按钮（原站 CSS 无此规则，自建） ---------- */
+
+.to-top-btn {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  z-index: 400;
+  display: flex;
+  width: 46px;
+  height: 46px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #1d384a;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+          transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+}
+
+.to-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.to-top-btn::before {
+  content: "";
+  margin: auto;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid #1d384a;
+  border-left: 2px solid #1d384a;
+  -webkit-transform: rotate(45deg) translate(2px, 2px);
+          transform: rotate(45deg) translate(2px, 2px);
+}
+
+/* ---------- 加载开场（JS 注入的 #loading 结构匹配 top.css 选择器） ---------- */
+
+#loading h1 {
+  width: auto;
+  height: auto;
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+#loading .wave-box {
+  background: #00a3ff;
+}
+
+.loading-logo {
+  font-family: "Syncopate", "Noto Sans SC", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 8px;
+  color: #1d384a;
+}
+
+#loading .wave-box .waves svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- 移动端菜单按钮（桌面隐藏） ---------- */
+
+.sp-menu-btn {
+  display: none;
+}
+
+/* ---------- 平板（751-1100px）：story 行改上下堆叠，避免横向溢出 ---------- */
+
+@media screen and (min-width: 751px) and (max-width: 1100px) {
+  .introduction,
+  .features,
+  .game-system {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+
+  .story-text-box.introduction-text,
+  .story-text-box.features-text,
+  .story-text-box.game-system-text {
+    width: 100%;
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .story-img {
+    width: 100%;
+    max-width: 1000px;
+    height: 380px;
+    margin: 40px auto 0;
+  }
+}
+
+/* ---------- 移动端（≤750px） ---------- */
+
+@media screen and (max-width: 750px) {
+
+  /* 导航：文字抽屉 */
+  header .nav-box.open {
+    display: block;
+    -webkit-animation: fadeInAnim 0.4s ease-out both;
+            animation: fadeInAnim 0.4s ease-out both;
+  }
+
+  header .nav-box .nav {
+    padding: 180px 60px 0 0;
+  }
+
+  header .nav-box .nav li {
+    margin: 0 0 56px;
+  }
+
+  header .nav-box .nav li a .en {
+    font-size: 24px;
+    letter-spacing: 3px;
+  }
+
+  header .nav-box .nav li a .cn {
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 6px;
+  }
+
+  .sp-menu-btn {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #1d384a;
+    cursor: pointer;
+  }
+
+  .sp-menu-btn span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    margin: 0 auto;
+    background: #1d384a;
+    -webkit-transition: opacity 0.3s ease-out, -webkit-transform 0.3s ease-out;
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  }
+
+  .sp-menu-btn.open span:nth-child(1) {
+    -webkit-transform: translateY(4.5px) rotate(45deg);
+            transform: translateY(4.5px) rotate(45deg);
+  }
+
+  .sp-menu-btn.open span:nth-child(2) {
+    -webkit-transform: translateY(-4.5px) rotate(-45deg);
+            transform: translateY(-4.5px) rotate(-45deg);
+  }
+
+  .sp-menu-btn.open span:nth-child(3) {
+    opacity: 0;
+  }
+
+  /* 标题字号与宽度（原站 SP 把标题定死 525/354px，必须放开） */
+  .introduction-title,
+  .features-title,
+  .game-system-title {
+    width: auto;
+    max-width: none;
+    min-width: auto;
+  }
+
+  .title-kicker {
+    font-size: 18px;
+    letter-spacing: 4px;
+  }
+
+  .title-kicker.animate-spec {
+    height: 30px;
+  }
+
+  .title-main {
+    font-size: 32px;
+    letter-spacing: 4px;
+  }
+
+  /* 首屏 */
+  .fv .fv-text {
+    top: 30%;
+    left: 8%;
+  }
+
+  .hero-kicker {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .hero-kicker.animate-spec {
+    height: 24px;
+  }
+
+  .hero-name {
+    font-size: 40px;
+    letter-spacing: 6px;
+  }
+
+  .hero-sub {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  .fv .scroll-box {
+    bottom: 100px;
+  }
+
+  /* 占位图：原站 SP 定死 650px 宽（设计稿按 750 视口），这里改自适应 */
+  .story-img {
+    width: 100%;
+    max-width: 650px;
+    height: 277px;
+  }
+
+  /* 作品画廊：移动端标题舞台略矮，但仍独占一步，画廊在其后才出现 */
+  .works .wrapper {
+    display: flex;
+    min-height: 65vh;
+    padding-top: 120px;
+    padding-bottom: 70px;
+  }
+
+  .works-pin {
+    margin-top: 0;
+  }
+
+  .works-carousel {
+    gap: 16px;
+  }
+
+  .works-card {
+    width: 280px;
+    height: 300px;
+    padding: 32px 28px;
+  }
+
+  .works-card-name {
+    margin-top: 40px;
+    font-size: 19px;
+  }
+
+  .works-detail {
+    width: 92%;
+    bottom: 16px;
+    padding: 28px 22px;
+  }
+
+  .hero-waves {
+    height: 80px;
+  }
+
+  /* Contact */
+  .contact .wrapper {
+    padding: 120px 0 90px;
+  }
+
+  .contact-title {
+    margin-bottom: 70px;
+  }
+
+  .contact .spec-items li {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    margin-bottom: 18px;
+  }
+
+  .contact .spec-items li span:first-of-type {
+    width: auto;
+    margin: 0 0 4px;
+  }
+
+  .contact .spec-items li span:last-of-type {
+    min-width: 0;
+    width: auto;
+  }
+
+  .contact .link-items {
+    gap: 0 32px;
+    margin-top: 50px;
+  }
+
+  /* Footer */
+  .footer .links {
+    width: auto;
+    min-width: 0;
+    margin-top: 50px;
+  }
+
+  .to-top-btn {
+    right: 20px;
+    bottom: 20px;
+  }
+}
+
+/* ---------- 减少动态效果偏好 ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .fade-down,
+  .fade-left,
+  .fade-right,
+  .fade-scale,
+  .spec-items,
+  .link-items,
+  .story-img,
+  .item-list,
+  .p3r-logo,
+  .bg-word {
+    opacity: 1 !important;
+    -webkit-animation: none !important;
+            animation: none !important;
+    -webkit-transition: none !important;
+            transition: none !important;
+  }
+
+  .animate-spec span,
+  .animate-links span {
+    -webkit-transform: none !important;
+            transform: none !important;
+    -webkit-transition: none !important;
+            transition: none !important;
+  }
+
+  .fv .scroll-box {
+    opacity: 1 !important;
+  }
+
+  .hero-particles span {
+    display: none;
+  }
+
+  .works-band,
+  .works-card,
+  .works-detail {
+    -webkit-transition: none !important;
+            transition: none !important;
+  }
+
+  .works-carousel {
+    overflow-x: auto;
+  }
+
+  /* 钉住滚动降级为普通静态列表 */
+  .works-sticky {
+    position: static;
+    height: auto;
+  }
+
+  .works-band {
+    height: auto;
+    padding: 50px 0;
+  }
+}

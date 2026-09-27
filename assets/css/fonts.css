@@ -1,0 +1,52 @@
+/* ============================================================
+   本地化字体(2026-09-27 自托管,来源 Fontsource @5,OFL 协议可商用)
+   - Syncopate 700:英文展示词(kicker / SCROLL / 卡片编号)
+   - Urbanist 400/700:拉丁正文与数字
+   - Noto Sans SC 400/700:简体中文正文
+   注意:中文字体只保留了"简体常用字"子集(每字重约 1.1MB),
+   生僻字会回退系统字体;如需覆盖更全,可从 Fontsource 重新下载完整版。
+   ============================================================ */
+
+/* 拉丁子集 unicode-range(与 Fontsource latin 子集一致) */
+@font-face {
+  font-family: "Syncopate";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/syncopate-latin-700-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Urbanist";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/urbanist-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Urbanist";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/urbanist-latin-700-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+0401-040C, U+040E-044F, U+0451-045C, U+045E-045F, U+0490-0491, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Noto Sans SC";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/noto-sans-sc-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Noto Sans SC";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/noto-sans-sc-700-normal.woff2") format("woff2");
+}
