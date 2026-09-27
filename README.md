@@ -57,7 +57,7 @@ personal/                     ← 本目录就是一个 git 仓库(已初始化,
 ### 可选的增强
 
 - ✅ **字体本地化**(已完成,2026-09-27):Syncopate / Urbanist / Noto Sans SC 已全部自托管在 `assets/fonts/`,不依赖任何外部网络。注意中文字体是"简体常用字"子集(每字重约 1.1MB),生僻字会回退系统字体;如需完整覆盖,去 Fontsource 重新下载 full 版替换。
-- ✅ **og 分享标签**(已加):head 里已有 og:/twitter: 标签,但里面的 `example.com` 和 `assets/img/ogp.png` 是占位,部署后替换成你的域名和真实预览图。
+- ✅ **og 分享标签**(已加):已指向 `https://woshinc.com/`,只剩 `assets/img/ogp.png` 预览图待你提供。
 - **删除占位样式**:所有图片都换好后,可删除 `personal.css` 里 `.ph` 系列规则和 `--ph-*` 变量。
 
 ---
