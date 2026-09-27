@@ -5,13 +5,16 @@
 ## 文件结构
 
 ```
-personal/
+personal/                     ← 本目录就是一个 git 仓库(已初始化,main 分支)
 ├── index.html              页面内容(文案、板块、占位块都在这)
+├── README.md               本文档
+├── .gitignore
 └── assets/
     ├── css/
     │   ├── top.css         原站样式原样复制(唯一改动:删了 3 个失效字体声明)——不要改它
-    │   ├── fonts.css       中文字体 Noto Sans SC(远程加载)
+    │   ├── fonts.css       本地字体声明(Syncopate/Urbanist/Noto Sans SC,全部自托管)
     │   └── personal.css    本页全部新增样式(覆盖/调色都写在这里)
+    ├── fonts/              5 个 woff2 字体文件(Fontsource 下载,OFL 协议)
     ├── js/personal.js      交互脚本:开场、入场动画、平滑滚动、画廊钉住滑动、手风琴、菜单
     └── img/                你自己的图片放这里(目前为空)
 ```
@@ -53,8 +56,8 @@ personal/
 
 ### 可选的增强
 
-- **字体本地化**:Syncopate / Urbanist 目前从 Google Fonts 在线加载,断网回退系统字体。想彻底离线:从 GitHub(google/fonts 仓库)下载这两个字体(OFL 协议,可商用)放 `assets/fonts/`,在 `personal.css` 里重新声明 `@font-face`。
-- **分享标签**:`index.html` head 里目前没有 og: 标签,部署后可补(标题、描述、预览图)。
+- ✅ **字体本地化**(已完成,2026-09-27):Syncopate / Urbanist / Noto Sans SC 已全部自托管在 `assets/fonts/`,不依赖任何外部网络。注意中文字体是"简体常用字"子集(每字重约 1.1MB),生僻字会回退系统字体;如需完整覆盖,去 Fontsource 重新下载 full 版替换。
+- ✅ **og 分享标签**(已加):head 里已有 og:/twitter: 标签,但里面的 `example.com` 和 `assets/img/ogp.png` 是占位,部署后替换成你的域名和真实预览图。
 - **删除占位样式**:所有图片都换好后,可删除 `personal.css` 里 `.ph` 系列规则和 `--ph-*` 变量。
 
 ---
@@ -69,6 +72,7 @@ personal/
 | 作品卡片封面(可选) | 320×360(移动端 280×300) | 竖版 | 目前卡片是纯色块,换图时保留卡片结构、去掉背景色即可 |
 | 页脚 LOGO(`.p3r-logo`) | **140×40**(2 倍清晰 280×80) | — | 浅色底,logo 颜色用深蓝 #1d384a 系最协调 |
 | 网站图标 | 16×16 或 32×32(SVG 矢量更佳) | 1:1 | 替换 head 里的 data URI |
+| 分享预览图 ogp.png | **1200×630** | 1.91:1 | 放到 `assets/img/ogp.png`,并把 og 标签里的 example.com 换成你的域名 |
 
 ### 怎么换图
 
@@ -128,7 +132,7 @@ personal/
 - [ ] favicon 换成自己的
 - [ ] 图片压缩成 webp(首屏背景控制在 500KB 以内)
 - [ ] head 里补 og: 分享标签(标题/描述/预览图)
-- [ ] ⚠️ **字体问题(重要)**:现在 Syncopate/Urbanist/Noto Sans SC 都从 Google Fonts 加载,**国内无法访问**。部署到国内访问的环境前,把字体本地化:下载字体文件放 `assets/fonts/`,在 `personal.css` 重新声明 `@font-face`,并删除 `index.html` 里的 Google Fonts `<link>` 与 `fonts.css` 引用(或干脆接受系统字体回退,中文回退微软雅黑效果也可接受)
+- [ ] ✅ 字体已本地化(2026-09-27),离线可用,无需处理
 
 ### 托管选择
 
@@ -162,8 +166,8 @@ git push -u origin main
 
 **建议按顺序做:**
 
-1. **版本管理**:现在还不是 git 仓库,尽快 `git init` 提交一次,之后的改动都有据可查
-2. **SEO**:补 og/twitter 标签、生成 `sitemap.xml`、`robots.txt`;`title` 和 description 用真实姓名
+1. ✅ **版本管理**(已完成):本目录已是 git 仓库,初始提交完成;后续改动 `git add -A && git commit -m "..."` 即可
+2. **SEO**:og/twitter 标签已加(替换 example.com 占位);还需生成 `sitemap.xml`、`robots.txt`,`title` 和 description 换成真实姓名
 3. **统计(可选)**:国内用百度统计,境外用 Google Analytics;注重隐私可用自托管 umami
 4. **性能**:跑一次 Lighthouse;给首屏之外的图加 `loading="lazy"`;字体用 `preload`(本地化后)
 5. **随笔接真实博客**:条目链接指向 Hexo/Hugo 生成的博客,或语雀/掘金文章;想要评论区可用 Giscus(GitHub Discussions 驱动,无广告)
