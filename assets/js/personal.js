@@ -8,6 +8,76 @@
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---------- 0. 内容渲染：作品与随笔由 content/ 下的数据文件生成 ----------
+     添加内容只需编辑 content/works/works.js 和 content/essays/essays.js,
+     index.html 不用动。渲染必须在其他模块之前,因为手风琴和画廊要绑定这些动态节点。 */
+
+  const escHTML = (s) =>
+    String(s == null ? "" : s).replace(/[&<>"']/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+    );
+
+  function renderWorks() {
+    const list = document.querySelector(".works-carousel");
+    const works = window.WORKS;
+    if (!list || !Array.isArray(works)) return;
+    list.innerHTML = works
+      .map((w, i) => {
+        const no = String(i + 1).padStart(2, "0"); // PROJECT 01、02…按顺序自动编号
+        const paras = String(w.desc || "")
+          .split("\n\n")
+          .map((p) => `<p>${escHTML(p).replace(/\n/g, "<br>")}</p>`)
+          .join("");
+        const links = (w.links || [])
+          .map(
+            (l) =>
+              `<a href="${escHTML(l.href)}" target="_blank" rel="noopener">${escHTML(l.text)} →</a>`
+          )
+          .join("　");
+        return (
+          '<li class="works-slide">' +
+            '<button type="button" class="works-card" aria-expanded="false">' +
+              `<span class="works-card-en">PROJECT ${no}</span>` +
+              `<span class="works-card-num">${no}</span>` +
+              `<span class="works-card-name">${escHTML(w.name)}</span>` +
+              `<span class="works-card-year">${escHTML(w.year)} / ${escHTML(w.tag)}</span>` +
+            "</button>" +
+            '<div class="works-slide-detail" hidden>' +
+              paras +
+              (links ? `<p>${links}</p>` : "") +
+            "</div>" +
+          "</li>"
+        );
+      })
+      .join("");
+  }
+
+  function renderEssays() {
+    const list = document.querySelector("#essays .item-list");
+    const essays = window.ESSAYS;
+    if (!list || !Array.isArray(essays)) return;
+    list.insertAdjacentHTML(
+      "beforeend",
+      essays
+        .map(
+          (e) =>
+            '<div class="item">' +
+              '<button type="button" class="item-btn" aria-expanded="false">' +
+                `<span class="item-name">${escHTML(e.date)} / ${escHTML(e.title)}</span>` +
+                '<span class="item-icon"></span>' +
+              "</button>" +
+              '<div class="item-text">' +
+                `<p>${escHTML(e.summary)} <a href="${escHTML(e.url || "#")}">阅读全文 →</a></p>` +
+              "</div>" +
+            "</div>"
+        )
+        .join("")
+    );
+  }
+
+  renderWorks();
+  renderEssays();
+
   /* ---------- 1. 拆字：把 .animate-spec 文本拆成字母 span（复刻原站 footer 写法） ---------- */
 
   function splitText(el) {
@@ -244,7 +314,8 @@
   const strip = document.querySelector(".works-carousel");
   const detailBox = document.querySelector(".works-detail");
 
-  if (pin && sticky && band && strip) {
+  /* 无作品数据时(pin 里没有卡片)整个模块跳过,避免空数组取 [0] 报错 */
+  if (pin && sticky && band && strip && strip.querySelector(".works-slide")) {
     const slides = [...strip.querySelectorAll(".works-slide")];
     const palette = ["#00d4ff", "#ff3de0", "#4f6bff", "#ff2e97", "#00e08a", "#ffd21e"];
     /* 滚动系数:卡片平移 1px 需要页面滚动的距离。1 = 原站 1:1 手感,1.5 = 更慢更从容 */
