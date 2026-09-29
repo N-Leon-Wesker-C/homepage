@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="随笔 · 阅读文章">
+  <title>随笔 · 加载中…</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2300a3ff'/%3E%3C/svg%3E">
+  <link href="assets/css/fonts.css" rel="stylesheet">
+  <link href="assets/css/top.css" rel="stylesheet">
+  <link href="assets/css/personal.css" rel="stylesheet">
+  <link href="assets/css/essay.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- 顶部阅读进度条 -->
+  <div class="post-progress"><span id="postProgress"></span></div>
+
+  <main class="main">
+    <div class="container">
+
+      <header>
+        <div class="nav-box">
+          <ul class="nav">
+            <li><a href="index.html#about"><span class="en">ABOUT</span><span class="cn">关于我</span></a></li>
+            <li><a href="index.html#works"><span class="en">WORKS</span><span class="cn">项目作品</span></a></li>
+            <li><a href="index.html#essays"><span class="en">ESSAYS</span><span class="cn">随笔</span></a></li>
+            <li><a href="index.html#contact"><span class="en">CONTACT</span><span class="cn">联系方式</span></a></li>
+          </ul>
+        </div>
+        <button type="button" class="sp-menu-btn" aria-label="打开菜单" aria-expanded="false"><span></span><span></span><span></span></button>
+      </header>
+
+      <section class="post-hero">
+        <div class="post-hero-inner wrapper">
+          <p class="post-kicker">ESSAY</p>
+          <h1 class="post-title" id="postTitle">加载中…</h1>
+          <p class="post-meta"><time id="postDate"></time><span class="post-read" id="postRead"></span></p>
+          <ul class="post-tags" id="postTags"></ul>
+        </div>
+      </section>
+
+      <!-- 正文:由 essay.js 读取 content/essays/posts/<文章>.js 后渲染 markdown 生成 -->
+      <article class="post-body" id="postBody"></article>
+
+      <!-- 上一篇 / 下一篇(按 content/essays/essays.js 的顺序) -->
+      <nav class="post-siblings" id="postSiblings" aria-label="上一篇 / 下一篇"></nav>
+
+      <p class="post-back"><a href="index.html#essays">← 返回随笔列表</a></p>
+
+      <footer class="footer">
+        <div class="footer-contents">
+          <div class="ph p3r-logo" data-ph="MY LOGO"></div>
+          <div class="links">
+            <p class="headline-text animate-links"><span>L</span> <span>I</span> <span>N</span> <span>K</span> <span>S</span></p>
+            <ul class="link-items">
+              <li><a href="https://github.com/N-Leon-Wesker-C" target="_blank" rel="noopener">GitHub</a></li>
+              <li><a href="mailto:2367421497@qq.com">Email</a></li>
+              <li><a href="https://n-leon-wesker-c.github.io/" target="_blank" rel="noopener">Blog</a></li>
+            </ul>
+          </div>
+        </div>
+        <p class="copyright">© 2026 你的名字 · 页面风格参考 Persona 3 Reload 官网</p>
+      </footer>
+      <a href="#top" class="to-top-btn" title="TOP" aria-label="回到顶部"></a>
+
+    </div>
+  </main>
+
+  <!-- 随笔列表(用于生成上一篇/下一篇) → markdown 渲染库 → 站点脚本 → 文章脚本 -->
+  <script src="content/essays/essays.js"></script>
+  <script src="assets/js/vendor/marked.min.js"></script>
+  <script src="assets/js/personal.js" defer></script>
+  <script src="assets/js/essay.js" defer></script>
+</body>
+</html>

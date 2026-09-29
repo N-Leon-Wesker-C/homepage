@@ -59,18 +59,24 @@
     list.insertAdjacentHTML(
       "beforeend",
       essays
-        .map(
-          (e) =>
+        .map((e) => {
+          /* 有 file 字段 → 站内文章页;否则用 url(外链新窗口打开,"#" 为占位) */
+          const href = e.file
+            ? `essay.html?p=${encodeURIComponent(e.file)}`
+            : e.url || "#";
+          const ext = /^https?:/i.test(href) ? ' target="_blank" rel="noopener"' : "";
+          return (
             '<div class="item">' +
               '<button type="button" class="item-btn" aria-expanded="false">' +
                 `<span class="item-name">${escHTML(e.date)} / ${escHTML(e.title)}</span>` +
                 '<span class="item-icon"></span>' +
               "</button>" +
               '<div class="item-text">' +
-                `<p>${escHTML(e.summary)} <a href="${escHTML(e.url || "#")}">阅读全文 →</a></p>` +
+                `<p>${escHTML(e.summary)} <a href="${escHTML(href)}"${ext}>阅读全文 →</a></p>` +
               "</div>" +
             "</div>"
-        )
+          );
+        })
         .join("")
     );
   }
@@ -158,7 +164,12 @@
     setTimeout(finish, 6000); // 兜底：transitionend 未触发时强制结束
   }
 
-  runLoading();
+  /* 开场动画只在首页(有 .fv 首屏区块)播放;文章页等其他页面直接显示 */
+  if (document.querySelector(".fv")) {
+    runLoading();
+  } else {
+    document.body.classList.remove("hidden");
+  }
 
   /* ---------- 3. IntersectionObserver 入场动画（与原站一致的 -20% 提前量） ---------- */
 
@@ -255,13 +266,15 @@
   /* ---------- 5. 回到顶部按钮 ---------- */
 
   const toTop = document.querySelector(".to-top-btn");
-  window.addEventListener(
-    "scroll",
-    () => {
-      toTop.classList.toggle("show", window.scrollY > window.innerHeight);
-    },
-    { passive: true }
-  );
+  if (toTop) {
+    window.addEventListener(
+      "scroll",
+      () => {
+        toTop.classList.toggle("show", window.scrollY > window.innerHeight);
+      },
+      { passive: true }
+    );
+  }
 
   /* ---------- 6. 移动端菜单（≤750px 汉堡 + 毛玻璃抽屉） ---------- */
 
