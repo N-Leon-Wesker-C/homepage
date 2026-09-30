@@ -332,14 +332,93 @@ header .nav-box .nav li a .cn {
   opacity: 1;
 }
 
-/* ---------- story 文字区：p 固定高度微调（原 55px 会裁掉第二行） ---------- */
+/* ---------- story 文字区：段落高度改为随文字自适应 ----------
+   原站的设计是「一行文字 = 一个固定高度的 p」：p 写死 55/65/34px、里面的 span
+   绝对定位,所以文案一写长就被 overflow:hidden 裁掉,只露出前一两行。
+   这里改成:span 回到文档流 → p 的高度 = 文字实际高度,多长都能完整显示;
+   出场动画改用 transform + opacity(原 keyframes 靠 top 位移,静态定位下不再生效)。 */
 
-.story-text1 > p {
-  height: 66px;
+.story-text1 > p,
+.story-text1 > p:nth-of-type(2),
+.story-text1 > p:nth-of-type(3),
+.story-text2 > p,
+.story-text2 > p:first-of-type,
+.story-text2 > p:nth-of-type(2),
+.story-text4 > p,
+.story-text4 > p:first-of-type,
+.story-text4 > p:nth-of-type(2) {
+  height: auto;
+  margin-top: 18px;
 }
 
-.story-text1 > p span {
-  top: 66px;
+/* 第一段紧跟标题/图片,不需要额外的上边距 */
+.story-text1 > p:first-of-type,
+.story-text2 > p:first-of-type,
+.story-text4 > p:first-of-type {
+  margin-top: 0;
+}
+
+/* 注:没有文字的空行占位段(如 <p><span class="l2"><br></span></p>)由
+   personal.js 里的一小段脚本隐藏——纯 CSS 判断不出"这段没有任何文字"
+   (textContent 为空才算空,CSS 的 :empty/:only-child 都只看元素节点,会误伤) */
+
+/* span 回到文档流(逐个覆盖 top.css 里那几条绝对定位规则) */
+.story-text1 > p span,
+.story-text1 > p:nth-of-type(3) span,
+.story-text2 > p span,
+.story-text2 > p:first-of-type span,
+.story-text4 > p span,
+.story-text4 > p:first-of-type span,
+.story-text4 > p:nth-of-type(2) span {
+  position: static;
+  top: auto;
+  -webkit-transform: translateY(28px);
+          transform: translateY(28px);
+  opacity: 0;
+}
+
+/* 上滑入场(与 top.css 的 fadeInText1 同特异度,本文件后加载故生效) */
+.story-text1 > p .l1.run,
+.story-text1 > p .l2.run,
+.story-text1 > p .l3.run,
+.story-text1 > p .l4.run,
+.story-text1 > p .l5.run,
+.story-text2 > p .l1.run,
+.story-text2 > p .l2.run,
+.story-text2 > p .l3.run,
+.story-text4 > p .l1.run,
+.story-text4 > p .l2.run,
+.story-text4 > p .l3.run {
+  -webkit-animation: phTextSlideIn 0.9s ease-out both;
+          animation: phTextSlideIn 0.9s ease-out both;
+}
+
+@-webkit-keyframes phTextSlideIn {
+  0% {
+    -webkit-transform: translateY(28px);
+            transform: translateY(28px);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes phTextSlideIn {
+  0% {
+    -webkit-transform: translateY(28px);
+            transform: translateY(28px);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* ---------- 手风琴列表（从原站 lineup 抽取，作用域换成 .item-list） ---------- */
@@ -1039,11 +1118,17 @@ header .nav-box .nav li a .cn {
   }
 
   .animate-spec span,
-  .animate-links span {
+  .animate-links span,
+  .story-text1 > p span,
+  .story-text2 > p span,
+  .story-text4 > p span {
     -webkit-transform: none !important;
             transform: none !important;
+    -webkit-animation: none !important;
+            animation: none !important;
     -webkit-transition: none !important;
             transition: none !important;
+    opacity: 1 !important;
   }
 
   .fv .scroll-box {

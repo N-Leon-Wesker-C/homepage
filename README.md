@@ -147,7 +147,7 @@ window.POSTS["my-day"] = {                 // ← 中括号里必须和文件名
 |---|---|---|
 | `<title>` / meta description | 你的名字 · 个人主页 | 你的真实姓名/昵称 |
 | 首屏 | 你的名字 / 个人主页 · 前端开发 / 设计 / 随笔 | 姓名 + 一句话定位 |
-| 关于我三段 | 占位介绍 | 自我介绍(每段 1~2 行,过长会被裁剪,见下) |
+| 关于我三段 | 占位介绍 | 自我介绍(长度不限,段落会自动变高) |
 | 项目作品简介 | 占位文案 | 作品区说明 |
 | 6 个项目卡片 | 项目名称一~六 / 2026 / WEB | 在 `content/works/works.js` 里改成真实项目(见第一节) |
 | 随笔 | 2 篇示例文章 | 在 `content/essays/essays.js` 里改成真实随笔(见第一节);两篇示例(`hello-world`、`study-notes`)写够自己的内容后可以连同 `posts/` 里的文件一起删掉 |
@@ -158,7 +158,8 @@ window.POSTS["my-day"] = {                 // ← 中括号里必须和文件名
 | 关于我底部水印 | PORTFOLIO | `index.html` 里搜 `bg-word`(可选) |
 | 三行格言 | Stay hungry / Stay foolish / Keep shipping | 搜 `story-text3`(可选) |
 
-> 关于我三段文字的注意:原站动画是"固定高度 + 逐行上滑",每段超过 2 行会被裁掉。要写长文请改 `personal.css` 里 `.story-text1 > p` 的 `height`(当前 66px ≈ 两行)。
+> **关于我 / 作品 / 随笔的引导文字**:段落高度已改为**随文字自适应**(2026-09-30 修复),写多长都会完整显示,不用再调高度。
+> 原站在 `top.css` 里的实现是「一行文字 = 一个固定高度的 `p`」(55/65/34px),里面的 span 用绝对定位摆放,所以文案一写长就被 `overflow: hidden` 裁掉——`personal.css` 里已覆盖:span 回到文档流、高度自动,出场动画改用 `transform` 上滑。另外,没有文字的空行段(如中间那个 `<span class="l2"><br></span>`)会被 `personal.js` 自动隐藏,不占一整行。
 
 ### 素材
 

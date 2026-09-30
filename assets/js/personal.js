@@ -84,6 +84,14 @@
   renderWorks();
   renderEssays();
 
+  /* 关于我/作品/随笔的文案里,空的行占位段(原站留下的空行)不占一整行高度。
+     用 textContent 判断,纯 CSS 做不到(文本节点不算 :empty/:only-child)。 */
+  document
+    .querySelectorAll(".story-text1 > p, .story-text2 > p, .story-text4 > p")
+    .forEach((p) => {
+      if (!p.textContent.trim()) p.hidden = true;
+    });
+
   /* ---------- 1. 拆字：把 .animate-spec 文本拆成字母 span（复刻原站 footer 写法） ---------- */
 
   function splitText(el) {
